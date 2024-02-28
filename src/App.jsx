@@ -1,5 +1,7 @@
-import React from "react"
-import Button from "./component/Element/Button"
+import React from "react";
+import LoginPage from "./pages/login";
+import RegisterPage from "./pages/register";
+
 
 
 
@@ -7,17 +9,13 @@ import Button from "./component/Element/Button"
 function App () {
   return (
     
-      <div className="flex justify-center bg-blue-600 min-h-screen items-center">
-        <div className="flex gap-x-2">
-          <Button variant="bg-red-700" >login</Button>
-          <Button variant="bg-slate-700" >log out</Button>
-          <Button></Button>
-
-        </div>
+      <div className="flex justify-center min-h-screen items-center">
+         {/* <LoginPage></LoginPage>  */}
+         <RegisterPage/>
       </div>
       
     
   );
-  }
+  };
 
-export default App
+export default App;
