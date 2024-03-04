@@ -33,7 +33,7 @@ const email = localStorage.getItem("email");
 
 const ProductsPage = () => {
 
-    const [card, setCard] = useState([
+    const [cart, setCart] = useState([
         {
             id: 1,
             qty: 1,
@@ -46,9 +46,9 @@ const ProductsPage = () => {
         window.location.href = "/login";
     };
 
-    const handleAddToCard = (id) => {
-        setCard([
-            ...card,
+    const handleAddToCart = (id) => {
+        setCart([
+            ...cart,
             {
                 id,
                 qty: 2,
@@ -71,14 +71,14 @@ const ProductsPage = () => {
                             </CardProduct.Body>
                             <CardProduct.Footer price={product.price}
                                 id={product.id}
-                                handleAddToCard={handleAddToCard} />
+                                handleAddToCart={handleAddToCart} />
                         </CardProduct>
                     ))}
                 </div>
                 <div className="w-2/6">
                     <h1 className="text-3xl font-bold text-blue-600">Card</h1>
                     <ul>
-                        {card.map((item) => (
+                        {cart.map((item) => (
                             <li key={item}>{item.id}</li>
                         ))}
                     </ul>
