@@ -1,12 +1,12 @@
 import { Fragment, useState } from "react";
 import Button from "../component/Element/Button";
-import CardProduct from "../component/Fragment/CardProduct";
+import CartProduct from "../component/Fragment/CardProduct";
 
 const products = [
     {
         id: 1,
         name: "Sepatu Baru",
-        price: 1000000,
+        price: 900000,
         image: "/image/sepatu1.jpg",
         description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
         Quibusdam, expedita? Lorem ipsum dolor sit amet sadam alok terizla lunox epep emel`
@@ -23,7 +23,7 @@ const products = [
     {
         id: 3,
         name: "Sepatu Import",
-        price: 3500000,
+        price: 750000,
         image: "/image/sepatu1.jpg",
         description: `Quibusdam, expedita? Lorem ipsum dolor sit amet sadam alok terizla lunox epep emel`
     }
@@ -47,14 +47,14 @@ const ProductsPage = () => {
     };
 
     const handleAddToCart = (id) => {
-        setCart([
-            ...cart,
-            {
-                id,
-                qty: 2,
-            },
-        ])
-    }
+        if(cart.find (item => item.id === id )) {
+            setCart(
+                cart.map (item => item.id === id ? { ...item, qty: item.qty + 1 } : item)
+            )
+        } else {
+            setCart([...cart, {id, qty: 1}]);
+        }
+    };
 
     return (
         <Fragment>
@@ -62,26 +62,58 @@ const ProductsPage = () => {
                 <Button classname=" ml-5 bg-black" onClick={handleLogout}>Log Out</Button>
             </div>
             <div className="flex justify-center py-5">
-                <div className="w-4/7 flex flex-w">
+                <div className="w-4/6 flex flex-w">
                     {products.map((product) => (
-                        <CardProduct key={product.id}>
-                            <CardProduct.Header image={product.image} />
-                            <CardProduct.Body name={product.name}>
+                        <CartProduct key={product.id}>
+                            <CartProduct.Header image={product.image} />
+                            <CartProduct.Body name={product.name}>
                                 {product.description}
-                            </CardProduct.Body>
-                            <CardProduct.Footer price={product.price}
+                            </CartProduct.Body>
+                            <CartProduct.Footer price={product.price}
                                 id={product.id}
                                 handleAddToCart={handleAddToCart} />
-                        </CardProduct>
+                        </CartProduct>
                     ))}
                 </div>
                 <div className="w-2/6">
-                    <h1 className="text-3xl font-bold text-blue-600">Card</h1>
-                    <ul>
+                    <h1 className="text-3xl font-bold text-blue-600 ml-5 mb-2">Card</h1>
+                    {/* <ul>
                         {cart.map((item) => (
                             <li key={item}>{item.id}</li>
                         ))}
-                    </ul>
+                    </ul> */}
+                    <table className="text-left table-auto border-separate border-spacing-x-5">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {cart.map((item) => {
+                                const product = products.find (
+                                    (product) => product.id === item.id
+                                    );
+                                    return (
+                                        <tr key={item.id}>
+                                            <td>{product.name}</td>
+                                            <td>
+                                            Rp{" "} 
+                                            {product.price.toLocaleString('id-ID', {styles:'currency', currency: 'IDR'})}
+                                            </td>
+                                            <td>{item.qty}</td>
+                                            <td> Rp {(item.qty * product.price).toLocaleString ('id-ID',
+                                             {styles:'currency', 
+                                             currency: 'IDR'
+                                             })}
+                                             </td>
+                                        </tr>
+                                    )
+                            })}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </Fragment>
