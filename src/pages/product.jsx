@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import Button from "../component/Element/Button";
 import CartProduct from "../component/Fragment/CardProduct";
-import Counter from "../component/Fragment/Counter";
+import { getUsername } from "../services/auth.service";
 import { getProducts } from "../services/product.service";
 
 // const products = [
@@ -31,23 +31,27 @@ import { getProducts } from "../services/product.service";
 //     }
 // ]
 
-const email = localStorage.getItem("email");
+
 
 const ProductsPage = () => {
 
     const [cart, setCart] = useState([]);
     const [totalPrice, setTotalPrice] = useState (0);
     const [products, setProducts] = useState([]);
+    const [username, setUsername] = useState("");
 
     useEffect (() => {
         setCart (JSON.parse(localStorage.getItem("cart")) || []);
     }, []);
 
     useEffect(() => {
-        getProducts((data) => {
-            console.log(data)
-        });
-    }, [])
+        const token = localStorage.getItem("token");
+        if (token) {
+            setUsername(getUsername(token));
+        } else {
+            window.location.href = "/login"
+        }
+    }, []);
 
     useEffect (() => {
                 getProducts((data) => {
@@ -68,8 +72,7 @@ const ProductsPage = () => {
     }, [cart, products]);
 
     const handleLogout = () => {
-        localStorage.removeItem('email');
-        localStorage.removeItem('password');
+        localStorage.removeItem("token");
         window.location.href = "/login";
     };
 
@@ -103,10 +106,11 @@ const ProductsPage = () => {
 
     return (
         <Fragment>
-            <div className="flex justify-end h-20 bg-blue-600 text-white items-center px-10">{email}
+            <div className="flex justify-end h-20 bg-blue-600 text-white items-center px-10">
+                {username}
                 <Button classname=" ml-5 bg-black" onClick={handleLogout}>Log Out</Button>
             </div>
-            <div className="flex justify-center py-5">
+            <div className="flex justify-center py-10">
                 <div className="w-4/6 flex flex-wrap">
                 {products.length > 0 && 
                 products.map((product) => (
