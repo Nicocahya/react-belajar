@@ -8,8 +8,8 @@ import ErrorPage from './pages/404.jsx'
 import ProductsPage from './pages/product.jsx'
 // import ProfilePage from './pages/profile.jsx'
 import DetailProductPage from './pages/detailProduct.jsx'
-// import { Provider } from "react-redux";
-// import store from "./redux/store.js";
+import { Provider } from "react-redux";
+import store from "./redux/store.js";
 
 const router = createBrowserRouter ([
   {
@@ -33,10 +33,10 @@ const router = createBrowserRouter ([
     path: "/products",
     element: <ProductsPage/>,
   },
-  {
-    path: "/profile",
-    element: <ProfilePage/>,
-  },
+  // {
+  //   path: "/profile",
+  //   element: <ProfilePage/>,
+  // },
   {
     path: "/product/:id",
     element: <DetailProductPage/>,

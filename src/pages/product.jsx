@@ -1,11 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
-import Button from "../component/Element/Button";
 import CartProduct from "../component/Fragment/CardProduct";
-import { getUsername } from "../services/auth.service";
 import { getProducts } from "../services/product.service";
 import { useLogin } from "../hooks/useLogin";
-import TableCart from "../components/Fragments/TableCart";
-import Navbar from "../components/Layout/Navbar";
+import Navbar from "../component/LayOut/Navbar";
+import TableCard from "../component/Fragment/TableCard";
 
 const ProductsPage = () => {
 
@@ -37,7 +35,7 @@ const ProductsPage = () => {
                 </div>
                 <div className="w-2/6">
                     <h1 className="text-3xl font-bold text-blue-600 ml-5 mb-2">Card</h1>
-                    <TableCart products={products} />
+                    <TableCard products={products} />
                 </div>
             </div>
             {/* <div className="mt-5 flex justify-center mb-5">

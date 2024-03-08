@@ -1,12 +1,11 @@
-import { Children } from "react";
 import Button from "../Element/Button";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/slices/cartSlice";
+import { addToCart } from "../../redux/slice/cartSlice";
 
 
 const CartProduct = (props) => {
-    const {children} = props;
+    const { children } = props;
     return (
             <div className="w-full max-w-64 bg-gray-700 border border-gray-600 rounded-lg shadow mx-5 my-2 flex flex-col justify-between">
                 {children}
