@@ -14,7 +14,7 @@ const cartSlice = createSlice({
         state.data.push(action.payload);
       }
 
-      state.data.push(action.payload);
+      // state.data.push(action.payload);
     },
   },
 });

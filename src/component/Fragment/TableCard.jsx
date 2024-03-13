@@ -1,15 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { DarkMode } from "../../context/DarkMode";
 
 const TableCart = (props) => {
   const { products } = props;
   const cart = useSelector((state) => state.cart.data);
   const [totalPrice, setTotalPrice] = useState(0);
+  const { isDarkMode } = useContext(DarkMode);
 
   useEffect(() => {
     if (products.length > 0 && cart.length > 0) {
       const sum = cart.reduce((acc, item) => {
-        const product = products.find((product) => product.id === item.id);
+        const product = products.find((product) => product.id === item.id);       
+
         return acc + product.price * item.qty;
       }, 0);
       setTotalPrice(sum);
@@ -28,7 +31,7 @@ const TableCart = (props) => {
   }, [cart]);
 
   return (
-    <table className="text-left table-auto border-separate border-spacing-x-5">
+    <table className={`text-left table-auto border-separate border-spacing-x-5 ${isDarkMode && "text-white"}`}>
       <thead>
         <tr>
           <th>Product</th>
@@ -51,7 +54,7 @@ const TableCart = (props) => {
             );
           })}
         <tr ref={totalPriceRef}>
-          <td colSpan={3}>
+          <td colSpan={1}>
             <b>Total price</b>
           </td>
           <td>

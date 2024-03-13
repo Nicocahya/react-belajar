@@ -1,7 +1,11 @@
-import { forwardRef } from "react";
+
+import { forwardRef, useContext } from "react";
+import { DarkMode } from "../../../context/DarkMode";
 
 const Input =  forwardRef((props, ref) => {
     const {type, placeholder, name } = props;
+    const { isDarkMode } = useContext(DarkMode);
+
 return (
     <input 
     type={type}
